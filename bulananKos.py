@@ -1,3 +1,5 @@
+import math
+
 # Set Variabel
 pembayarPln = 11
 pembayarPam = 11
@@ -12,21 +14,23 @@ bayarPlnPerOrang = biayaPln / pembayarPln
 bayarPamPerOrang = biayaPam / pembayarPam
 bayarWifiPerOrang = biayaWifi / pembayarWifi
 
-# Hitung total biaya bulanan untuk 9 orang
-totalBiaya9Orang = bayarPlnPerOrang + bayarPamPerOrang + bayarWifiPerOrang
+# Bulatkan hasil biaya per orang ke atas
+bayarPlnPerOrang = math.ceil(bayarPlnPerOrang)
+bayarPamPerOrang = math.ceil(bayarPamPerOrang)
+bayarWifiPerOrang = math.ceil(bayarWifiPerOrang)
 
-# Hitung total biaya bulanan untuk 2 orang
-totalBiaya2Orang = bayarPlnPerOrang + bayarPamPerOrang
+# Hitung total biaya bulanan untuk 9 orang dan bulatkan ke atas
+biaya9Orang = math.ceil((bayarPlnPerOrang + bayarPamPerOrang + bayarWifiPerOrang) / 500) * 500
 
-# Trim the float output to 2 decimal places
-bayarPlnPerOrang = round(bayarPlnPerOrang, 2)
-bayarPamPerOrang = round(bayarPamPerOrang, 2)
-bayarWifiPerOrang = round(bayarWifiPerOrang, 2)
-totalBiaya9Orang = round(totalBiaya9Orang, 2)
-totalBiaya2Orang = round(totalBiaya2Orang, 2)
+# Hitung total biaya bulanan untuk 2 orang dan bulatkan ke atas
+totalBiaya2Orang = math.ceil((bayarPlnPerOrang + bayarPamPerOrang) * 2 / 500) * 500
 
-print("\nTotal bayar PLN bulan ini adalah: " + str(bayarPlnPerOrang))
-print("Total bayar PAM bulan ini adalah: " + str(bayarPamPerOrang))
-print("Total bayar WiFi bulan ini adalah: " + str(bayarWifiPerOrang))
-print("\nTotal biaya bulanan PLN, PAM, dan Wifi untuk 9 orang adalah: " + str(totalBiaya9Orang))
-print("Total biaya bulanan PLN, dan PAM untuk 2 orang adalah: " + str(totalBiaya2Orang))
+# Hitung total biaya setelah pengurangn uang om nur dan dibagi ke 9 orang
+biayaKotor9Orang = (150000 - totalBiaya2Orang) / pembayarWifi
+totalBiaya9Orang = math.ceil((biaya9Orang - biayaKotor9Orang) / 500) * 500
+
+print("\nTotal bayar PLN bulan ini adalah:", bayarPlnPerOrang)
+print("Total bayar PAM bulan ini adalah:", bayarPamPerOrang)
+print("Total bayar WiFi bulan ini adalah:", bayarWifiPerOrang)
+print("\nTotal biaya bulanan PLN, PAM, dan Wifi untuk 9 orang adalah:", totalBiaya9Orang)
+print("Total biaya bulanan PLN, dan PAM untuk Om Nur adalah:", totalBiaya2Orang)
